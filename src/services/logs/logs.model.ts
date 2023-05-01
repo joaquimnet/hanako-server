@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import { IUser, User } from '../auth/user.model';
 
 export interface ILog {
   app: string;
@@ -7,6 +8,7 @@ export interface ILog {
   level: string;
   timestamp: Date;
   meta: any;
+  user: IUser;
 }
 
 const logsSchema = new Schema<ILog>(
@@ -34,6 +36,11 @@ const logsSchema = new Schema<ILog>(
     meta: {
       type: Object,
       required: false,
+    },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: User,
+      required: true,
     },
   },
   {
